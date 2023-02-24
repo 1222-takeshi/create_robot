@@ -509,7 +509,7 @@ void CreateDriver::publishBatteryInfo()
   capacity_pub_->publish(float32_msg_);
   int16_msg_.data = robot_->getTemperature();
   temperature_pub_->publish(int16_msg_);
-  float32_msg_.data = robot_->getBatteryCharge() / robot_->getBatteryCapacity();
+  float32_msg_.data = robot_->getBatteryCharge() / robot_->getBatteryCapacity() * 100;
   charge_ratio_pub_->publish(float32_msg_);
 
   const create::ChargingState charging_state = robot_->getChargingState();
