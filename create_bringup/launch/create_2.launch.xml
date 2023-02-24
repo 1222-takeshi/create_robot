@@ -2,9 +2,12 @@
 <launch>
   <arg name="config" default="$(find-pkg-share create_bringup)/config/default.yaml" />
   <arg name="desc" default="true" />
+  <arg name="use_lidar" default="true" />
+  <arg name="use_imu" default="false" />
+  <arg name="use_ekf_localizer" default="false" />
 
   <!--include file="$(find-pkg-share teleop_twist_joy)/launch/teleop-launch.py" /-->
-  <include file="$(find-pkg-share ydlidar_ros2_driver)/launch/ydlidar_launch.py" />
+  <include file="$(find-pkg-share ydlidar_ros2_driver)/launch/ydlidar_launch.py" if="$(var use_lidar)"/>
 
   <node name="create_driver" pkg="create_driver" exec="create_driver" output="screen">
     <param from="$(var config)" />
@@ -14,7 +17,7 @@
   <!-- Robot description -->
   <include if="$(var desc)" file="$(find-pkg-share create_description)/launch/create_2.launch" />
 
-  <include file="$(find-pkg-share gpio_launcher)/launch/sensing.launch.xml" />
+  <include file="$(find-pkg-share gpio_launcher)/launch/sensing.launch.xml" if="$(var use_imu)"/>
 
-  <include file="$(find-pkg-share kalman_filter_localization)/launch/ekf.launch.py" />
+  <include file="$(find-pkg-share kalman_filter_localization)/launch/ekf.launch.py" if="$(var use_ekf_localizer)"/>
 </launch>
