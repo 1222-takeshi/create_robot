@@ -9,6 +9,5 @@
       name="rviz2"
       output="screen"
       args="-d $(var rviz_config)"
-      if="$(var rviz)"
     />
 </launch>
