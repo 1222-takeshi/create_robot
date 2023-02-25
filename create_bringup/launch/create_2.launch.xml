@@ -16,7 +16,7 @@
   </node>
 
   <!-- Robot description -->
-  <include if="$(var desc)" file="$(find-pkg-share create_description)/launch/create_2.launch" />
+  <include file="$(find-pkg-share create_description)/launch/create_2.launch.xml" if="$(var desc)" />
 
   <include file="$(find-pkg-share gpio_launcher)/launch/sensing.launch.xml" if="$(var use_imu)"/>
 
